@@ -1,0 +1,62 @@
+# DDL -crete
+
+create database store;
+
+create table countries(
+    code int primary key ,
+    name varchar(20) unique ,
+    continent_name varchar(20) not null
+);
+
+create table users(
+    id int primary key ,
+    full_name varchar(20),
+    email varchar(20) unique ,
+    gender char(1) check ( gender='M'or gender='F' ),
+    date_of_birth varchar(15),
+    created_at timestamp default CURRENT_TIMESTAMP,
+    country_code int ,
+    foreign key (country_code) references countries(code)
+);
+
+create table orders(
+    id int primary key ,
+    user_id int,
+    status varchar(6) check ( status='start'or status='finish' ),
+    created_at timestamp default CURRENT_TIMESTAMP,
+    foreign key (user_id) references users(id)
+);
+create table products(
+    id int primary key ,
+    name varchar(10) not null ,
+    price int default 0,
+    status varchar(10) check ( status='valid'or status='expired' ),
+    created_at timestamp default CURRENT_TIMESTAMP
+);
+
+create table order_products(
+    order_id int ,
+    product_id int,
+    quantity int default 0,
+    primary key (order_id,product_id),
+    foreign key (order_id) references orders(id),
+    foreign key (product_id)references products(id)
+);
+# DML - Insert
+insert into countries values (966,'saudi arabic','asia');
+insert into users values (1,'mohammed ibrahim','mohammed@gmail.com','M','2000-04-03',default,966);
+insert into orders values (132,1,'start',default);
+insert into products values (4,'laptop',5500,'valid',default);
+insert into order_products values (132,4,0);
+# DML - Update
+update users set email='m@gmail.com'where id=1;
+# DML - Delete
+delete from orders where id=132;
+
+# DQL - Select
+
+select  * from users;
+select  * from orders;
+select  * from countries;
+SELECT * from order_products;
+select * from products;
