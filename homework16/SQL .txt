@@ -49,7 +49,7 @@ insert into orders values (132,1,'start',default);
 insert into products values (4,'laptop',5500,'valid',default);
 insert into order_products values (132,4,0);
 # DML - Update
-update users set email='m@gmail.com'where id=1;
+update countries set name='SA'where code=966;
 # DML - Delete
 delete from orders where id=132;
 
